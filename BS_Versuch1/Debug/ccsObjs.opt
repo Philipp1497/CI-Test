@@ -1,0 +1,1 @@
+"./irq.obj" "./main.obj" "../bocas.lib" "../lnk_msp430f1611.cmd" -llibc.a 

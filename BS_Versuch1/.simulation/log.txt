@@ -1,0 +1,2 @@
+01 00 07 15:02:59.389 Project geladen: C:\Users\Philipp\workspace_v9\BS_Versuch1
+01 00 07 15:03:07.745 Log-File wird geändert
