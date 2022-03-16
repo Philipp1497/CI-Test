@@ -1,5 +1,5 @@
 cd %~dp0
 echo %PATH%
-bin\make.exe
+C:\MinGW\msys\1.0\bin\make.exe
 
 pause
