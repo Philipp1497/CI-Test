@@ -1,6 +1,6 @@
 cd %~dp0
 echo %PATH%
-bin\\make.exe
+start "C:\MinGW\msys\1.0\bin\make.exe"
 copy *.o ..\results 2>&1
 del *.o 2>&1
 pause
