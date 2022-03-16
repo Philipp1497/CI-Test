@@ -5,12 +5,16 @@ pipeline {
         // Install the Maven version configured as "M3" and add it to the path.
         maven "M3"
     }
-
+    
+    stage ('Checkout') {
+        
+         git 'https://github.com/Philipp1497/CI-Test.git'
+    }
     stages {
         stage('Build') {
             steps {
                 // Get some code from a GitHub repository
-                git 'https://github.com/Philipp1497/CI-Test.git'
+               
                 
                 cd 'BS_Versuch1\Debug'
                 make
