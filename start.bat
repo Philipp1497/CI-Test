@@ -1,6 +1,6 @@
 rem cd C:\Program Files (x86)\GnuWin32\bin
 cd make
-%make%
+start %make%
 copy *.o ..\results 2>&1
 del *.o
 pause
