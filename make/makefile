@@ -2,7 +2,6 @@ COMPILER := gcc
 
 main.o: main.c include.h
 		${GCC} -c main.c
-		echo abc
 
 all: program.out
 
