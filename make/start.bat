@@ -1,4 +1,5 @@
 cd %~dp0
 echo %PATH%
-%make%\make.exe ^
-	TARGET=main.o ^
+bin\make.exe
+
+pause
