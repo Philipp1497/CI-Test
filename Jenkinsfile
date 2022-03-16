@@ -1,14 +1,14 @@
 pipeline {
     agent any
 
-    tools {
-        // Install the Maven version configured as "M3" and add it to the path.
-        maven "M3"
-    }
-    
     stage ('Checkout') {
-        
-         git 'https://github.com/Philipp1497/CI-Test.git'
+        checkout([$class: 'GitSCM', branches: [[name: '*/master']],
+            userRemoteConfigs: [[url: 'https://github.com/Philipp1497/CI-Test.git']]])
+    }
+    stage ('Checkout') {
+        checkout([$class: 'GitSCM', branches: [[name: '*/master']],
+    userRemoteConfigs: [[url: 'http://git-server/user/repository.git']]])
+        git 'https://github.com/Philipp1497/CI-Test.git'
     }
     stages {
         stage('Build') {
