@@ -1,7 +1,7 @@
 COMPILER := gcc
 SOURCEPATH := Source
 
-main.o: main.c include.h
+main.o:
 		gcc -c main.c
 
 all: program.out
