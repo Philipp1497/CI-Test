@@ -1,6 +1,7 @@
 COMPILER := gcc
 
 main.o: 
+		mkdir obj
 		${GCC} -c ${SOURCEPATH}/main.c
 
 all: program.out
