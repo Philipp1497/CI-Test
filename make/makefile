@@ -1,8 +1,8 @@
 COMPILER := gcc
 
+
 main.o: 
-		mkdir obj
-		${GCC} -c ${SOURCEPATH}/main.c
+		${GCC} -c -o ${SOURCEPATH}/main.c
 
 all: program.out
 
