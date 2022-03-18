@@ -1,6 +1,6 @@
 COMPILER := gcc
 
-main.o:
+main.o: main.c
 		${GCC} -c ${SOURCEPATH}\main.c
 
 all: program.out
