@@ -1,7 +1,7 @@
 COMPILER := gcc
 
 main.o:
-		${GCC} -c ${SOURCEPATH}/main.c
+		${GCC} -c ${SOURCEPATH}\main.c
 
 all: program.out
 
