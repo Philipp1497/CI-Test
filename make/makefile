@@ -2,7 +2,7 @@ COMPILER := gcc
 SOURCEPATH := Source
 
 main.o:
-		gcc -c ${dir}/main.c
+		gcc -c ${dir}\main.c
 
 all: program.out
 
