@@ -1,6 +1,4 @@
-cd make
-set "dir=%cd%"
-set "SOURCEPATH=..\..\Source"
-echo %PATH%
+
+set "SOURCEPATH=C:/Users/Philipp/Desktop/CI-Test/Source"
 %MAKE_PATH%
 pause

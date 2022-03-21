@@ -1,6 +1,6 @@
 
-main.o: 
-		${COMPILER} -c ${SOURCEPATH}/main.c
+main.o:
+		${GCC} -c ${SOURCEPATH}/main.c
 
 all: program.out
 
