@@ -1,6 +1,7 @@
 
+
 main.o:
-		${GCC} -c ${SOURCEPATH}/main.c
+		${GCC} --include="C:/ti/ccs930/ccs/ccs_base/msp430/include_gcc/msp430f1611.h" -c ${SOURCEPATH}/main.c
 
 all: program.out
 
