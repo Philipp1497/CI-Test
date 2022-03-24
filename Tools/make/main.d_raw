@@ -1,0 +1,7 @@
+../../Target/obj/main.obj: C:/Users/Philipp/Desktop/CI-Test/Source/main.c
+../../Target/obj/main.obj: C:\Users\Philipp\Desktop\CI-Test\Source\bocas.h
+../../Target/obj/main.obj: C:/ti/ccs930/ccs/ccs_base/msp430/include/msp430f1611.h
+../../Target/obj/main.obj: C:\ti\ccs930\ccs\ccs_base\msp430\include\in430.h
+../../Target/obj/main.obj: C:/ti/ccs930/ccs/tools/compiler/ti-cgt-msp430_18.12.4.LTS/include/intrinsics.h
+../../Target/obj/main.obj: C:\ti\ccs930\ccs\tools\compiler\ti-cgt-msp430_18.12.4.LTS\include\intrinsics_legacy_undefs.h
+../../Target/obj/main.obj: C:/ti/ccs930/ccs/tools/compiler/ti-cgt-msp430_18.12.4.LTS/include/stdbool.h

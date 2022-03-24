@@ -1,7 +1,38 @@
 
+echo = C:\msys64\usr\bin\echo.exe
 
-main.o:
-		${GCC} --include="C:/ti/ccs930/ccs/ccs_base/msp430/include_gcc/msp430f1611.h" -c ${SOURCEPATH}/main.c
+
+Source = ${SOURCEPATH}/*.c
+CMD = ${SOURCEPATH}/Cmd/*.cmd
+Libs = ${SOURCEPATH}/Libs/*.lib
+
+TargetPath = ../../Target/bin
+ObjPath = ../../Target/obj
+
+all: OBJS_C OBJS_ASM Bachelor_Praxisprojekt.out
+	@$(MAKE) $(OBJS_C)
+	@$(MAKE) $(OBJS_ASM)
+	@$(MAKE) $(Bachelor_Praxisprojekt.out)
+OBJS_C: ${SOURCEPATH}/*.c
+	@$(echo) 'Compiling C- Files'
+	@$(echo) 'Invoking: MSP430 Compiler'
+	"C:/ti/ccs930/ccs/tools/compiler/ti-cgt-msp430_18.12.4.LTS/bin/cl430" -vmsp --use_hw_mpy=16 --include_path="C:/ti/ccs930/ccs/ccs_base/msp430/include" --include_path="C:/Users/Philipp/workspace_v9/MC_Praktikum" --include_path="C:/ti/ccs930/ccs/tools/compiler/ti-cgt-msp430_18.12.4.LTS/include" --advice:power=all --define=__MSP430F1611__ -g --printf_support=minimal --diag_warning=225 --obj_directory=$(ObjPath) --diag_wrap=off --display_error_number --preproc_with_compile --preproc_dependency="$(basename $(<F)).d_raw" $(GEN_OPTS__FLAG) "${SOURCEPATH}/*.c"
+	@$(echo) 'Finished building C-Files'
+	@$(echo) ' '
+	
+OBJS_ASM: ${SOURCEPATH}/*.asm
+	@$(echo) 'Compiling Asm- Files'
+	@$(echo) 'Invoking: MSP430 Compiler'
+	"C:/ti/ccs930/ccs/tools/compiler/ti-cgt-msp430_18.12.4.LTS/bin/cl430" -vmsp --use_hw_mpy=16 --include_path="C:/ti/ccs930/ccs/ccs_base/msp430/include" --include_path="C:/Users/Philipp/workspace_v9/MC_Praktikum" --include_path="C:/ti/ccs930/ccs/tools/compiler/ti-cgt-msp430_18.12.4.LTS/include" --advice:power=all --define=__MSP430F1611__ -g --printf_support=minimal --diag_warning=225 --obj_directory=$(ObjPath) --diag_wrap=off --display_error_number --preproc_with_compile --preproc_dependency="$(basename $(<F)).d_raw" $(GEN_OPTS__FLAG) "${SOURCEPATH}/*.asm"
+	@$(echo) 'Finished building Asm-Files'
+	@$(echo) ' '
+
+
+Bachelor_Praxisprojekt.out: $(OBJS) $(CMD_SRCS) $(LIB_SRCS) $(GEN_CMDS)
+	@$(echo) 'Invoking: MSP430 Linker'
+	"C:/ti/ccs930/ccs/tools/compiler/ti-cgt-msp430_18.12.5.LTS/bin/cl430" -vmsp --use_hw_mpy=16 --advice:power=all --define=__MSP430F1611__ -g --printf_support=minimal --diag_warning=225 --diag_wrap=off --display_error_number -z -m"$(TargetPath)/Bachelor_Praxisprojekt.map" --heap_size=80 --stack_size=80 --cinit_hold_wdt=on -i"C:/ti/ccs930/ccs/ccs_base/msp430/include" -i"C:/ti/ccs930/ccs/tools/compiler/ti-cgt-msp430_18.12.5.LTS/lib" -i"C:/ti/ccs930/ccs/tools/compiler/ti-cgt-msp430_18.12.5.LTS/include" --reread_libs --diag_wrap=off --display_error_number --warn_sections --xml_link_info="Bachelor_Praxisprojekt_linkInfo.xml" --use_hw_mpy=16 --rom_model -o "$(TargetPath)/Bachelor_Praxisprojekt.out" $(ObjPath)
+	@$(echo) 'Finished building target: "$@"'
+	@$(echo) ' '
 
 all: program.out
 
@@ -9,12 +40,3 @@ clean:
 		rm -f *.o
 		rm -f *.out
 
-program: main.o file1.o file2.o
-		$(COMPILER) -o program main.o file1.o file2.o
-
-
-file1.o: file1.c
-		$(COMPILER) -c file1.c
-
-file2.o: fil2.c
-		$(COMPILER) -c file2.c

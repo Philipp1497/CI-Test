@@ -1,6 +1,4 @@
 #include "bocas.h"
-#include "ringbuffer.h"
-
 #include "stdbool.h"
 
 #define BITSET(x,y) ((x)|= (y))
@@ -8,93 +6,169 @@
 #define HIGH_16(x) (((x) &0xFF00)>>8)
 #define LOW_16(x)  ((x) &0x00FF)
 
+#define CHECK_BIT(var,pos) ((var) & (1<<(pos)))
+
+
 #define FAIL 0
 #define SUCCESS 1
 
 #define INT_ENABLE asm ("\tEINT")
 
+static int count;
+static int zündungs_flag;
+static int blinken_flag;
+static int blinkzyklen;
+static int warnblink;
+//static int schalter_flag;
 
-char data[7];
-unsigned int read = 0 ;
-unsigned int write = 0;     //Datenbuffer mit read und write index
+extern void initTimerA();
 
-char trash; // zeichen die nicht verwertet werden
+#pragma INTERRUPT (isrTimer);
+#pragma vector = 6;
 
-#pragma INTERRUPT (isr_rs232_receive);
-#pragma vector = 3;
-
-void isr_rs232_receive()// isr
+void isrTimer (void)
 {
-       if(write < 8)
-       {
-           data[write] = U1RXBUF; // solange write index < 8 kopieren aus Empfangsbuffer in Datenbuffer
-       }
-       if(write > 7)
-       {
-           trash = U1RXBUF; // falls write > 7 zeichen nicht verwerten
-       }
-       write++;
-
+    TACCR0 += 50000u; //50000 takte
+    count--;
+    if(warnblink == 1 && blinken_flag == 0){
+        if (count == 10)         //Interrupt Service Routine vom Timer
+            {
+                P4OUT &= ~(0x81);
+            }
+            if (count == 0)
+            {
+                P4OUT |= 0x81;
+                count = 20;
+            }
+    }
+    if(warnblink == 0){
+        if (count == 10)         //Interrupt Service Routine vom Timer
+        {
+            P4OUT &= ~(0x81);
+            blinkzyklen++;
+            if(blinkzyklen == 3){
+                if(P1IN == 0x01 || P1IN == 0x02 || P1IN == 0x04 || P1IN == 0x03){
+                    blinkzyklen = 1;//flag zurücksetzen
+                } else {
+                    TACTL &= ~(MC_2); // Timer stoppen
+                    blinkzyklen = 0;//flag zurücksetzen
+                    blinken_flag = 0;
+                }
+            }
+        }
+        if (count == 0)
+        {
+            if(zündungs_flag == 1){
+                if(blinken_flag == 1){
+                    P4OUT &= ~(0x80);
+                    P4OUT |= 0x01;
+                }
+                if(blinken_flag == 2){
+                    P4OUT &= ~(0x01);
+                    P4OUT |= 0x80;
+                }
+                if(blinken_flag == 3){
+                    P4OUT |= 0x81;
+                }
+                count = 20;
+            }
+        }
+    }
 }
-void warteschleife(int i); // verzögerungsfunktion aus versuch 4
+
+#pragma INTERRUPT (isrTaster1);
+#pragma vector = 4;
+void isrTaster1(void)
+{
+    switch(P1IFG) {
+    case 0x80:
+        // Zündungs Case, Taster ganz links
+        if(zündungs_flag == 0){
+            zündungs_flag++;
+            P4OUT |= 0x20; // Led für Zündung
+        } else {
+            zündungs_flag = 0; //reset vom flag
+            P4OUT = 0x00; //Leds ausmachen
+        }
+        break;
+    case 0x40:
+        // Warnblink Case
+        if (warnblink == 1) {
+            warnblink = 0;
+            P4OUT &= ~(0x81);
+            TACTL &= ~(MC_2);
+        } else if(warnblink == 0 && blinken_flag == 0){
+            warnblink = 1;
+            count = 1;
+            initTimerA();
+        }
+        break;
+    case 0x01:
+        // Rechts Blinker Case
+        if(zündungs_flag == 1){
+            TACTL &= ~(MC_2);
+            count = 1;
+            warnblink = 0;
+            blinken_flag = 1; // für den fall rechts blinken
+            blinkzyklen = 0;
+            initTimerA();
+        }
+        break;
+    case 0x02:
+        if(zündungs_flag == 1){
+            TACTL &= ~(MC_2);
+            count = 1;
+            warnblink = 0;
+            blinken_flag = 2; // für den fall links blinken
+            blinkzyklen = 0;
+            initTimerA();
+        }
+        break;
+    case 0x04:
+        if(zündungs_flag == 1){
+            TACTL &= ~(MC_2);
+            count = 1;
+            warnblink = 0;
+            blinken_flag = 3; // für den fall rechts und links blinken gleichzeitig
+            blinkzyklen = 0;
+            initTimerA();
+        }
+        break;
+
+    }
+    P1IFG = 0x00;
+}
 
 
 
 void main (void)
 {
+    P1SEL = 0x00;
+    P1DIR = 0x00;
+    P1IN  = 0xFF;
     P4SEL = 0x00;
-    P4DIR = 0x8F; // Porthardware init
+    P4DIR = 0xFF; // Porthardware init
 
-    rs232init();
-    BITCLR(IFG2, URXIFG1);
-    BITSET(IE2, URXIE1);
+    P1IES = 0x00; //Bitclear auf steigende Flanke reagieren
+    P1IE = 0xFF;
+    P1IFG = 0x00;
 
-
-    BITCLR(IFG2, UTXIFG1);
-    BITCLR(IFG2, URXIFG1);
+    WDTCTL = WDTPW+WDTHOLD;       // Watchdog abschalten
     INT_ENABLE;
 
 
     while(1)
     {
-
-        if(data[read] != 0) // falls buffer nicht leer mach was, sonst busy wait
-        {
-
-
-            warteschleife(1000);
-            if(write > 7)
-            {
-                write = 8;
-                P4OUT = 0x80 + write; // falls write > 7 wort mit mehr als 8 zeichen also linke led an
-            }
-
-            if(read < write)
-            {
-                U1TXBUF = data[read]; // solange read < write in sendebuffer kopieren
-            }
-
-            read++;
-
-
-
-            if(read >= write) // falls read index write index einholt dann reset uns led aus
-            {
-                read = 0;
-                write = 0;
-                data[read] = 0;
-                P4OUT = 0;
-            }
-            if(write <= 7)
-            {
-                P4OUT = write;
-            }
-            P4OUT = P4OUT - read; //led nacheinander aus machen falls ein zeichen gelesen wurde
-
-
+        /*if(P1IN == 0x01 && schalter_flag == 1){
+            schalter_flag = 0;
+            var = 1;
+            initTimerA();
         }
+        if (P1IN != 0x01 && var == 1){
+            TACTL &= ~(MC_2);
+            P4OUT &= ~(0x81);
+            var = 0;
+        }*/
     }
-
-
 
 }
