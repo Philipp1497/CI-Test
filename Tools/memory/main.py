@@ -13,7 +13,7 @@ def read_segments(flag):
 def find_in_mapfile(segments):
     index = 0
     flag = 0
-    file = open('mapfiles/*.map', 'r')
+    file = open('mapfiles/Bachelor_Praxisprojekt.map', 'r')
     for line in file:
             index += 1
             if segments in line:
