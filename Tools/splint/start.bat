@@ -1,2 +1,2 @@
-splint.exe main.c
+splint.exe %1
 pause
