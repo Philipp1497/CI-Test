@@ -14,11 +14,11 @@
 
 #define INT_ENABLE asm ("\tEINT")
 
-static int count;
-static int zündungs_flag;
-static int blinken_flag;
-static int blinkzyklen;
-static int warnblink;
+int count;
+int zuendungs_flag;
+int blinken_flag;
+int blinkzyklen;
+int warnblink;
 //static int schalter_flag;
 
 extern void initTimerA();
@@ -58,7 +58,7 @@ void isrTimer (void)
         }
         if (count == 0)
         {
-            if(zündungs_flag == 1){
+            if(zuendungs_flag == 1){
                 if(blinken_flag == 1){
                     P4OUT &= ~(0x80);
                     P4OUT |= 0x01;
@@ -83,11 +83,11 @@ void isrTaster1(void)
     switch(P1IFG) {
     case 0x80:
         // Zündungs Case, Taster ganz links
-        if(zündungs_flag == 0){
-            zündungs_flag++;
+        if(zuendungs_flag == 0){
+            zuendungs_flag++;
             P4OUT |= 0x20; // Led für Zündung
         } else {
-            zündungs_flag = 0; //reset vom flag
+            zuendungs_flag = 0; //reset vom flag
             P4OUT = 0x00; //Leds ausmachen
         }
         break;
@@ -105,7 +105,7 @@ void isrTaster1(void)
         break;
     case 0x01:
         // Rechts Blinker Case
-        if(zündungs_flag == 1){
+        if(zuendungs_flag == 1){
             TACTL &= ~(MC_2);
             count = 1;
             warnblink = 0;
@@ -115,7 +115,7 @@ void isrTaster1(void)
         }
         break;
     case 0x02:
-        if(zündungs_flag == 1){
+        if(zuendungs_flag == 1){
             TACTL &= ~(MC_2);
             count = 1;
             warnblink = 0;
@@ -125,7 +125,7 @@ void isrTaster1(void)
         }
         break;
     case 0x04:
-        if(zündungs_flag == 1){
+        if(zuendungs_flag == 1){
             TACTL &= ~(MC_2);
             count = 1;
             warnblink = 0;
