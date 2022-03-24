@@ -1,7 +1,7 @@
 ******************************************************************************
                   MSP430 Linker PC v18.12.5                    
 ******************************************************************************
->> Linked Thu Mar 24 10:55:53 2022
+>> Linked Thu Mar 24 11:28:13 2022
 
 OUTPUT FILE NAME:   <C:/Users/Philipp/Desktop/CI-Test/Target/bin/Bachelor_Praxisprojekt.out>
 ENTRY POINT SYMBOL: "_c_int00"  address: 000042ac
@@ -42,7 +42,11 @@ SECTION ALLOCATION MAP
 section   page    origin      length       input sections
 --------  ----  ----------  ----------   ----------------
 .bss       0    00001100    0000000a     UNINITIALIZED
-                  00001100    0000000a     main.obj (.bss)
+                  00001100    00000002     (.common:blinken_flag)
+                  00001102    00000002     (.common:blinkzyklen)
+                  00001104    00000002     (.common:count)
+                  00001106    00000002     (.common:warnblink)
+                  00001108    00000002     (.common:zuendungs_flag)
 
 .stack     0    000038b0    00000050     UNINITIALIZED
                   000038b0    00000002     bocas.lib : boot_6.obj (.stack)
@@ -394,10 +398,15 @@ ffffffff  __c_args__
 00004306  _system_post_cinit                     
 00004302  _system_pre_init                       
 000042fc  abort                                  
+00001100  blinken_flag                           
+00001102  blinkzyklen                            
+00001104  count                                  
 00004260  initTimerA                             
 00004000  isrTaster1                             
 000040ea  isrTimer                               
 00004236  main                                   
+00001106  warnblink                              
+00001108  zuendungs_flag                         
 
 
 GLOBAL SYMBOLS: SORTED BY Symbol Address 
@@ -570,6 +579,11 @@ address   name
 000001f2  DMA2SA                                 
 000001f4  DMA2DA                                 
 000001f6  DMA2SZ                                 
+00001100  blinken_flag                           
+00001102  blinkzyklen                            
+00001104  count                                  
+00001106  warnblink                              
+00001108  zuendungs_flag                         
 000038b0  _stack                                 
 00003900  __STACK_END                            
 00004000  isrTaster1                             
@@ -618,4 +632,4 @@ ffffffff  __TI_prof_data_size
 ffffffff  __TI_prof_data_start                   
 ffffffff  __c_args__                             
 
-[213 symbols]
+[218 symbols]
