@@ -2,6 +2,8 @@
 echo = C:\msys64\usr\bin\echo.exe
 
 
+Compiler = ../ti-cgt-msp430_18.12.4.LTS/bin
+
 Source = ${SOURCEPATH}/*.c
 CMD = ${SOURCEPATH}/Cmd/*.cmd
 Libs = ${SOURCEPATH}/Libs/*.lib
@@ -22,7 +24,7 @@ all: OBJS_C OBJS_ASM
 OBJS_C: ${SOURCEPATH}/*.c
 	@$(echo) 'Compiling C- Files'
 	@$(echo) 'Invoking: MSP430 Compiler'
-	"C:/ti/ccs930/ccs/tools/compiler/ti-cgt-msp430_18.12.4.LTS/bin/cl430" -vmsp --use_hw_mpy=16 --include_path="C:/ti/ccs930/ccs/ccs_base/msp430/include" --include_path="C:/Users/Philipp/workspace_v9/MC_Praktikum" --include_path="C:/ti/ccs930/ccs/tools/compiler/ti-cgt-msp430_18.12.4.LTS/include" --advice:power=all --define=__MSP430F1611__ -g --printf_support=minimal --diag_warning=225 --obj_directory=$(ObjPath) --diag_wrap=off --display_error_number --preproc_with_compile --preproc_dependency="$(basename $(<F)).d_raw" $(GEN_OPTS__FLAG) "${SOURCEPATH}/*.c"
+	"$(Compiler)/cl430" -vmsp --use_hw_mpy=16 --include_path="${MSP430_INCLUDE}" --include_path="C:/Users/Philipp/workspace_v9/MC_Praktikum" --include_path="$(Compiler)/include" --advice:power=all --define=__MSP430F1611__ -g --printf_support=minimal --diag_warning=225 --obj_directory=$(ObjPath) --diag_wrap=off --display_error_number --preproc_with_compile --preproc_dependency="$(basename $(<F)).d_raw" $(GEN_OPTS__FLAG) "${SOURCEPATH}/*.c"
 	@$(echo) 'Finished building C-Files'
 	@$(echo) ' '
 	
