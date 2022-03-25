@@ -7,8 +7,8 @@ CMD = ${SOURCEPATH}/Cmd/*.cmd
 Libs = ${SOURCEPATH}/Libs/*.lib
 Dep = ${SOURCEPATH}/Dep
 
-TargetPath = C:/Users/Philipp/Desktop/CI-Test/Target/bin
-ObjPath = C:/Users/Philipp/Desktop/CI-Test/Target/obj
+TargetPath = ../../Target/bin
+ObjPath = ../../Target/obj
 
 ORDERED_OBJS += \
 "$(ObjPath)/*.obj" \
