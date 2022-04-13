@@ -1,0 +1,2 @@
+../../Target/obj/math_module.obj: ../../Source/math_module.c
+../../Target/obj/math_module.obj: ..\..\Source\math_module.h

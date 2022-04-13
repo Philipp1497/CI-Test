@@ -14,14 +14,15 @@
 
 #define INT_ENABLE asm ("\tEINT")
 
-int count;
-int zuendungs_flag;
-int blinken_flag;
-int blinkzyklen;
-int warnblink;
+static int count;
+static int zuendungs_flag;
+static int blinken_flag;
+static int blinkzyklen;
+static int warnblink;
 //static int schalter_flag;
 
 extern void initTimerA();
+
 
 #pragma INTERRUPT (isrTimer);
 #pragma vector = 6;
@@ -82,7 +83,7 @@ void isrTaster1(void)
 {
     switch(P1IFG) {
     case 0x80:
-        // Zündungs Case, Taster ganz links
+        // Zuendungs Case, Taster ganz links
         if(zuendungs_flag == 0){
             zuendungs_flag++;
             P4OUT |= 0x20; // Led für Zündung
@@ -140,7 +141,6 @@ void isrTaster1(void)
 }
 
 
-
 void main (void)
 {
     P1SEL = 0x00;
@@ -155,20 +155,41 @@ void main (void)
 
     WDTCTL = WDTPW+WDTHOLD;       // Watchdog abschalten
     INT_ENABLE;
-
+    initDisplay();
 
     while(1)
     {
-        /*if(P1IN == 0x01 && schalter_flag == 1){
-            schalter_flag = 0;
-            var = 1;
-            initTimerA();
-        }
-        if (P1IN != 0x01 && var == 1){
-            TACTL &= ~(MC_2);
-            P4OUT &= ~(0x81);
-            var = 0;
-        }*/
+       if(warnblink == 1){
+           putString(0,2,"Warnblinken");
+       } else{
+           switch(blinken_flag){
+              case 0:
+                  putString(0,2,"               ");
+                  putString(0,3,"               ");
+                  break;
+              case 1:
+                  putString(0,3,"              ");
+                  putString(0,2,"Rechts Blinken");
+                  break;
+              case 2:
+                  putString(13,2," ");
+                  putString(0,3,"              ");
+                  putString(0,2,"Links Blinken");
+                  break;
+              case 3:
+                  putString(12,2,"  ");
+                  putString(0,2,"Gleichzeitig");
+                  putString(0,3,"Blinken");
+                  break;
+              }
+       }
+       if(zuendungs_flag == 1){
+           putString(0,5, "Zündung aktiv!");
+       } else {
+           putString(12,5, "  ");
+           putString(0,5, "Zündung aus!");
+       }
+
     }
 
 }

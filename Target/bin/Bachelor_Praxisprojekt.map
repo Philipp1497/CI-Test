@@ -1,10 +1,10 @@
 ******************************************************************************
-                  MSP430 Linker PC v18.12.5                    
+                  MSP430 Linker PC v18.12.4                    
 ******************************************************************************
->> Linked Fri Mar 25 10:38:22 2022
+>> Linked Wed Apr 13 16:07:55 2022
 
-OUTPUT FILE NAME:   <C:/Users/Philipp/Desktop/CI-Test/Target/bin/Bachelor_Praxisprojekt.out>
-ENTRY POINT SYMBOL: "_c_int00"  address: 000042ac
+OUTPUT FILE NAME:   <../../Target/bin/Bachelor_Praxisprojekt.out>
+ENTRY POINT SYMBOL: "_c_int00"  address: 00004d84
 
 
 MEMORY CONFIGURATION
@@ -17,7 +17,7 @@ MEMORY CONFIGURATION
   INFOB                 00001000   00000080  00000000  00000080  RWIX
   INFOA                 00001080   00000080  00000000  00000080  RWIX
   RAM                   00001100   00002800  0000005a  000027a6  RWIX
-  FLASH                 00004000   0000bfe0  00000312  0000bcce  RWIX
+  FLASH                 00004000   0000bfe0  00000e2d  0000b1b3  RWIX
   INT00                 0000ffe0   00000002  00000002  00000000  RWIX
   INT01                 0000ffe2   00000002  00000002  00000000  RWIX
   INT02                 0000ffe4   00000002  00000002  00000000  RWIX
@@ -42,36 +42,47 @@ SECTION ALLOCATION MAP
 section   page    origin      length       input sections
 --------  ----  ----------  ----------   ----------------
 .bss       0    00001100    0000000a     UNINITIALIZED
-                  00001100    00000002     (.common:blinken_flag)
-                  00001102    00000002     (.common:blinkzyklen)
-                  00001104    00000002     (.common:count)
-                  00001106    00000002     (.common:warnblink)
-                  00001108    00000002     (.common:zuendungs_flag)
+                  00001100    0000000a     main.obj (.bss)
 
 .stack     0    000038b0    00000050     UNINITIALIZED
                   000038b0    00000002     bocas.lib : boot_6.obj (.stack)
                   000038b2    0000004e     --HOLE--
 
-.text      0    00004000    00000308     
-                  00004000    000000ea     main.obj (.text:isrTaster1)
-                  000040ea    000000c6     main.obj (.text:isrTimer)
-                  000041b0    00000058     rts430_eabi.lib : autoinit.c.obj (.text:__TI_auto_init_nobinit_nopinit_hold_wdt:__TI_auto_init_nobinit_nopinit_hold_wdt)
-                  00004208    0000002e     bocas.lib : boot_6.obj (.text:CLK_CFG)
-                  00004236    0000002a     main.obj (.text:main)
-                  00004260    00000028     irq.obj (.text)
-                  00004288    00000024     rts430_eabi.lib : args_main.c.obj (.text:_args_main)
-                  000042ac    00000024     bocas.lib : boot_6.obj (.text:_c_int00)
-                  000042d0    00000014     rts430_eabi.lib : copy_zero_init.c.obj (.text:decompress:ZI:__TI_zero_init_nomemset:__TI_zero_init_nomemset)
-                  000042e4    00000010                     : epilog.asm.obj (.text)
-                  000042f4    00000008                     : isr_trap.asm.obj (.text:_isr:__TI_ISR_TRAP)
-                  000042fc    00000006                     : exit.c.obj (.text:abort)
-                  00004302    00000004                     : pre_init.c.obj (.text:_system_pre_init)
-                  00004306    00000002                     : startup.c.obj (.text:_system_post_cinit)
+.const     0    00004000    00000895     
+                  00004000    00000800     bocas.lib : glcd_text.obj (.const:.string:font)
+                  00004800    00000084     main.obj (.const:.string)
+                  00004884    00000011     bocas.lib : glcd.obj (.const:.string:init)
 
-.cinit     0    00004308    0000000a     
-                  00004308    00000004     (.cinit..bss.load) [load image, compression = zero_init]
-                  0000430c    00000002     (__TI_handler_table)
-                  0000430e    00000004     (__TI_cinit_table)
+.text      0    00004896    0000058e     
+                  00004896    00000114     main.obj (.text:main)
+                  000049aa    000000ea     main.obj (.text:isrTaster1)
+                  00004a94    000000c6     main.obj (.text:isrTimer)
+                  00004b5a    00000058     rts430_eabi.lib : autoinit.c.obj (.text:__TI_auto_init_nobinit_nopinit_hold_wdt:__TI_auto_init_nobinit_nopinit_hold_wdt)
+                  00004bb2    00000054     bocas.lib : glcd.obj (.text:glcdInit)
+                  00004c06    0000003c               : glcd_text.obj (.text:putString)
+                  00004c42    00000036               : glcd.obj (.text:glcdGotoXY)
+                  00004c78    00000034               : glcd_text.obj (.text:putChar)
+                  00004cac    00000032               : glcd.obj (.text:glcdClear)
+                  00004cde    0000002e               : boot_6.obj (.text:CLK_CFG)
+                  00004d0c    0000002c     rts430_eabi.lib : asr16.asm.obj (.text)
+                  00004d38    00000028     irq.obj (.text)
+                  00004d60    00000024     rts430_eabi.lib : args_main.c.obj (.text:_args_main)
+                  00004d84    00000024     bocas.lib : boot_6.obj (.text:_c_int00)
+                  00004da8    00000024               : glcd.obj (.text:glcdSendArray)
+                  00004dcc    00000014     rts430_eabi.lib : copy_zero_init.c.obj (.text:decompress:ZI:__TI_zero_init_nomemset:__TI_zero_init_nomemset)
+                  00004de0    00000010                     : epilog.asm.obj (.text)
+                  00004df0    0000000e     bocas.lib : glcd.obj (.text:glcdXmitSPI)
+                  00004dfe    0000000a               : glcd.obj (.text:glcdSendData)
+                  00004e08    00000008     rts430_eabi.lib : isr_trap.asm.obj (.text:_isr:__TI_ISR_TRAP)
+                  00004e10    00000008     bocas.lib : glcd_text.obj (.text:initDisplay)
+                  00004e18    00000006     rts430_eabi.lib : exit.c.obj (.text:abort)
+                  00004e1e    00000004                     : pre_init.c.obj (.text:_system_pre_init)
+                  00004e22    00000002                     : startup.c.obj (.text:_system_post_cinit)
+
+.cinit     0    00004e24    0000000a     
+                  00004e24    00000004     (.cinit..bss.load) [load image, compression = zero_init]
+                  00004e28    00000002     (__TI_handler_table)
+                  00004e2a    00000004     (__TI_cinit_table)
 
 .binit     0    00004000    00000000     
 
@@ -131,19 +142,22 @@ MODULE SUMMARY
 
        Module                 code   ro data   rw data
        ------                 ----   -------   -------
-    C:\Users\Philipp\Desktop\CI-Test\Target\obj\
-       main.obj               474    4         10     
+    ..\..\Target\obj\
+       main.obj               708    136       10     
        irq.obj                40     0         0      
     +--+----------------------+------+---------+---------+
-       Total:                 514    4         10     
+       Total:                 748    136       10     
                                                       
     ../../Source/Libs/bocas.lib
+       glcd_text.obj          120    2048      0      
+       glcd.obj               248    17        0      
        boot_6.obj             82     2         0      
     +--+----------------------+------+---------+---------+
-       Total:                 82     2         0      
+       Total:                 450    2067      0      
                                                       
-    C:\ti\ccs930\ccs\tools\compiler\ti-cgt-msp430_18.12.5.LTS\lib\rts430_eabi.lib
+    ..\ti-cgt-msp430_18.12.4.LTS\lib\rts430_eabi.lib
        autoinit.c.obj         88     0         0      
+       asr16.asm.obj          44     0         0      
        args_main.c.obj        36     0         0      
        copy_zero_init.c.obj   20     0         0      
        epilog.asm.obj         16     0         0      
@@ -165,23 +179,23 @@ MODULE SUMMARY
        int14.asm.obj          0      2         0      
        startup.c.obj          2      0         0      
     +--+----------------------+------+---------+---------+
-       Total:                 180    26        0      
+       Total:                 224    26        0      
                                                       
        Stack:                 0      0         80     
        Linker Generated:      0      10        0      
     +--+----------------------+------+---------+---------+
-       Grand Total:           776    42        90     
+       Grand Total:           1422   2239      90     
 
 
 LINKER GENERATED COPY TABLES
 
-__TI_cinit_table @ 0000430e records: 1, size/record: 4, table size: 4
-	.bss: load addr=00004308, load size=00000004 bytes, run addr=00001100, run size=0000000a bytes, compression=zero_init
+__TI_cinit_table @ 00004e2a records: 1, size/record: 4, table size: 4
+	.bss: load addr=00004e24, load size=00000004 bytes, run addr=00001100, run size=0000000a bytes, compression=zero_init
 
 
 LINKER GENERATED HANDLER TABLE
 
-__TI_handler_table @ 0000430c records: 1, size/record: 2, table size: 2
+__TI_handler_table @ 00004e28 records: 1, size/record: 2, table size: 2
 	index: 0, handler: __TI_zero_init
 
 
@@ -228,11 +242,11 @@ address   name
 00000152  ADC12MEM9                              
 00000057  BCSCTL1                                
 00000058  BCSCTL2                                
-000042fc  C$$EXIT                                
+00004e18  C$$EXIT                                
 00000059  CACTL1                                 
 0000005a  CACTL2                                 
 0000005b  CAPD                                   
-00004208  CLK_CFG                                
+00004cde  CLK_CFG                                
 000001c0  DAC12_0CTL                             
 000001c8  DAC12_0DAT                             
 000001c2  DAC12_1CTL                             
@@ -358,12 +372,12 @@ address   name
 00000120  WDTCTL                                 
 00003900  __STACK_END                            
 00000050  __STACK_SIZE                           
-0000430e  __TI_CINIT_Base                        
-00004312  __TI_CINIT_Limit                       
-0000430c  __TI_Handler_Table_Base                
-0000430e  __TI_Handler_Table_Limit               
-000042f4  __TI_ISR_TRAP                          
-000041b0  __TI_auto_init_nobinit_nopinit_hold_wdt
+00004e2a  __TI_CINIT_Base                        
+00004e2e  __TI_CINIT_Limit                       
+00004e28  __TI_Handler_Table_Base                
+00004e2a  __TI_Handler_Table_Limit               
+00004e08  __TI_ISR_TRAP                          
+00004b5a  __TI_auto_init_nobinit_nopinit_hold_wdt
 0000ffe0  __TI_int00                             
 0000ffe2  __TI_int01                             
 0000ffe4  __TI_int02                             
@@ -382,31 +396,53 @@ address   name
 ffffffff  __TI_pprof_out_hndl                    
 ffffffff  __TI_prof_data_size                    
 ffffffff  __TI_prof_data_start                   
-000042d0  __TI_zero_init_nomemset                
+00004dcc  __TI_zero_init_nomemset                
 ffffffff  __c_args__                             
-000042f0  __mspabi_func_epilog_1                 
-000042ee  __mspabi_func_epilog_2                 
-000042ec  __mspabi_func_epilog_3                 
-000042ea  __mspabi_func_epilog_4                 
-000042e8  __mspabi_func_epilog_5                 
-000042e6  __mspabi_func_epilog_6                 
-000042e4  __mspabi_func_epilog_7                 
-00004288  _args_main                             
-000042ac  _c_int00                               
+00004dec  __mspabi_func_epilog_1                 
+00004dea  __mspabi_func_epilog_2                 
+00004de8  __mspabi_func_epilog_3                 
+00004de6  __mspabi_func_epilog_4                 
+00004de4  __mspabi_func_epilog_5                 
+00004de2  __mspabi_func_epilog_6                 
+00004de0  __mspabi_func_epilog_7                 
+00004d0c  __mspabi_srai                          
+00004d34  __mspabi_srai_1                        
+00004d22  __mspabi_srai_10                       
+00004d20  __mspabi_srai_11                       
+00004d1e  __mspabi_srai_12                       
+00004d1c  __mspabi_srai_13                       
+00004d1a  __mspabi_srai_14                       
+00004d18  __mspabi_srai_15                       
+00004d32  __mspabi_srai_2                        
+00004d30  __mspabi_srai_3                        
+00004d2e  __mspabi_srai_4                        
+00004d2c  __mspabi_srai_5                        
+00004d2a  __mspabi_srai_6                        
+00004d28  __mspabi_srai_7                        
+00004d26  __mspabi_srai_8                        
+00004d24  __mspabi_srai_9                        
+00004d60  _args_main                             
+00004d84  _c_int00                               
 0000fffe  _reset_vector                          
 000038b0  _stack                                 
-00004306  _system_post_cinit                     
-00004302  _system_pre_init                       
-000042fc  abort                                  
-00001100  blinken_flag                           
-00001102  blinkzyklen                            
-00001104  count                                  
-00004260  initTimerA                             
-00004000  isrTaster1                             
-000040ea  isrTimer                               
-00004236  main                                   
-00001106  warnblink                              
-00001108  zuendungs_flag                         
+00004e22  _system_post_cinit                     
+00004e1e  _system_pre_init                       
+00004e18  abort                                  
+00004000  font                                   
+00004cac  glcdClear                              
+00004c42  glcdGotoXY                             
+00004bb2  glcdInit                               
+00004da8  glcdSendArray                          
+00004dfe  glcdSendData                           
+00004df0  glcdXmitSPI                            
+00004884  init                                   
+00004e10  initDisplay                            
+00004d38  initTimerA                             
+000049aa  isrTaster1                             
+00004a94  isrTimer                               
+00004896  main                                   
+00004c78  putChar                                
+00004c06  putString                              
 
 
 GLOBAL SYMBOLS: SORTED BY Symbol Address 
@@ -579,38 +615,60 @@ address   name
 000001f2  DMA2SA                                 
 000001f4  DMA2DA                                 
 000001f6  DMA2SZ                                 
-00001100  blinken_flag                           
-00001102  blinkzyklen                            
-00001104  count                                  
-00001106  warnblink                              
-00001108  zuendungs_flag                         
 000038b0  _stack                                 
 00003900  __STACK_END                            
-00004000  isrTaster1                             
-000040ea  isrTimer                               
-000041b0  __TI_auto_init_nobinit_nopinit_hold_wdt
-00004208  CLK_CFG                                
-00004236  main                                   
-00004260  initTimerA                             
-00004288  _args_main                             
-000042ac  _c_int00                               
-000042d0  __TI_zero_init_nomemset                
-000042e4  __mspabi_func_epilog_7                 
-000042e6  __mspabi_func_epilog_6                 
-000042e8  __mspabi_func_epilog_5                 
-000042ea  __mspabi_func_epilog_4                 
-000042ec  __mspabi_func_epilog_3                 
-000042ee  __mspabi_func_epilog_2                 
-000042f0  __mspabi_func_epilog_1                 
-000042f4  __TI_ISR_TRAP                          
-000042fc  C$$EXIT                                
-000042fc  abort                                  
-00004302  _system_pre_init                       
-00004306  _system_post_cinit                     
-0000430c  __TI_Handler_Table_Base                
-0000430e  __TI_CINIT_Base                        
-0000430e  __TI_Handler_Table_Limit               
-00004312  __TI_CINIT_Limit                       
+00004000  font                                   
+00004884  init                                   
+00004896  main                                   
+000049aa  isrTaster1                             
+00004a94  isrTimer                               
+00004b5a  __TI_auto_init_nobinit_nopinit_hold_wdt
+00004bb2  glcdInit                               
+00004c06  putString                              
+00004c42  glcdGotoXY                             
+00004c78  putChar                                
+00004cac  glcdClear                              
+00004cde  CLK_CFG                                
+00004d0c  __mspabi_srai                          
+00004d18  __mspabi_srai_15                       
+00004d1a  __mspabi_srai_14                       
+00004d1c  __mspabi_srai_13                       
+00004d1e  __mspabi_srai_12                       
+00004d20  __mspabi_srai_11                       
+00004d22  __mspabi_srai_10                       
+00004d24  __mspabi_srai_9                        
+00004d26  __mspabi_srai_8                        
+00004d28  __mspabi_srai_7                        
+00004d2a  __mspabi_srai_6                        
+00004d2c  __mspabi_srai_5                        
+00004d2e  __mspabi_srai_4                        
+00004d30  __mspabi_srai_3                        
+00004d32  __mspabi_srai_2                        
+00004d34  __mspabi_srai_1                        
+00004d38  initTimerA                             
+00004d60  _args_main                             
+00004d84  _c_int00                               
+00004da8  glcdSendArray                          
+00004dcc  __TI_zero_init_nomemset                
+00004de0  __mspabi_func_epilog_7                 
+00004de2  __mspabi_func_epilog_6                 
+00004de4  __mspabi_func_epilog_5                 
+00004de6  __mspabi_func_epilog_4                 
+00004de8  __mspabi_func_epilog_3                 
+00004dea  __mspabi_func_epilog_2                 
+00004dec  __mspabi_func_epilog_1                 
+00004df0  glcdXmitSPI                            
+00004dfe  glcdSendData                           
+00004e08  __TI_ISR_TRAP                          
+00004e10  initDisplay                            
+00004e18  C$$EXIT                                
+00004e18  abort                                  
+00004e1e  _system_pre_init                       
+00004e22  _system_post_cinit                     
+00004e28  __TI_Handler_Table_Base                
+00004e2a  __TI_CINIT_Base                        
+00004e2a  __TI_Handler_Table_Limit               
+00004e2e  __TI_CINIT_Limit                       
 0000ffe0  __TI_int00                             
 0000ffe2  __TI_int01                             
 0000ffe4  __TI_int02                             
@@ -632,4 +690,4 @@ ffffffff  __TI_prof_data_size
 ffffffff  __TI_prof_data_start                   
 ffffffff  __c_args__                             
 
-[218 symbols]
+[240 symbols]

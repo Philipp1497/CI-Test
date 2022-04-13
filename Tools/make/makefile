@@ -24,7 +24,7 @@ all: OBJS_C OBJS_ASM
 OBJS_C: ${SOURCEPATH}/*.c
 	@$(echo) 'Compiling C- Files'
 	@$(echo) 'Invoking: MSP430 Compiler'
-	"$(Compiler)/bin/cl430" -vmsp --use_hw_mpy=16 --include_path="${MSP430_INCLUDE}" --include_path="C:/Users/Philipp/workspace_v9/MC_Praktikum" --include_path="$(Compiler)/include" --advice:power=all --define=__MSP430F1611__ -g --printf_support=minimal --diag_warning=225 --obj_directory=$(ObjPath) --diag_wrap=off --display_error_number --preproc_with_compile --preproc_dependency="$(basename $(<F)).d_raw" $(GEN_OPTS__FLAG) "${SOURCEPATH}/*.c"
+	"$(Compiler)/bin/cl430" -vmsp --use_hw_mpy=16 --include_path="${MSP430_INCLUDE}" --include_path="C:/Users/Philipp/workspace_v9/MC_Praktikum" --include_path="$(Compiler)/include" --advice:power=all --define=__MSP430F1611__ -g --printf_support=full --diag_warning=225 --obj_directory=$(ObjPath) --diag_wrap=off --display_error_number --preproc_with_compile --preproc_dependency="$(basename $(<F)).d_raw" $(GEN_OPTS__FLAG) "${SOURCEPATH}/*.c"
 	@$(echo) 'Finished building C-Files'
 	@$(echo) ' '
 	

@@ -1,0 +1,68 @@
+Splint 3.1.1 --- 12 April 2003
+
+C:\Users\Philipp\Desktop\CI-Test\Source\bocas.h(11,74):
+    Comment starts inside comment
+  A comment open sequence (/*) appears within a comment.  This usually means an
+  earlier comment was not closed. (Use -nestcomment to inhibit warning)
+   In file included from C:\Users\Philipp\Desktop\CI-Test\Source\main.c(1)
+C:\Users\Philipp\Desktop\CI-Test\Source\bocas.h(34,82):
+    Comment starts inside comment
+C:\Users\Philipp\Desktop\CI-Test\Source\main.c: (in function isrTimer)
+C:\Users\Philipp\Desktop\CI-Test\Source\main.c(48,20):
+    Operands of == have incompatible types (unsigned char, int): P1IN == 0x01
+  To make char and int types equivalent, use +charint.
+C:\Users\Philipp\Desktop\CI-Test\Source\main.c(48,36):
+    Operands of == have incompatible types (unsigned char, int): P1IN == 0x02
+C:\Users\Philipp\Desktop\CI-Test\Source\main.c(48,52):
+    Operands of == have incompatible types (unsigned char, int): P1IN == 0x04
+C:\Users\Philipp\Desktop\CI-Test\Source\main.c(48,68):
+    Operands of == have incompatible types (unsigned char, int): P1IN == 0x03
+C:\Users\Philipp\Desktop\CI-Test\Source\main.c: (in function isrTaster1)
+C:\Users\Philipp\Desktop\CI-Test\Source\main.c(87,13):
+    Assignment of int to unsigned char: P4OUT = 0x00
+  Types are incompatible. (Use -type to inhibit warning)
+C:\Users\Philipp\Desktop\CI-Test\Source\main.c(135,5):
+    Assignment of int to unsigned char: P1IFG = 0x00
+C:\Users\Philipp\Desktop\CI-Test\Source\main.c(140,6):
+    Function main declared to return void, should return int
+  The function main does not match the expected type. (Use -maintype to inhibit
+  warning)
+C:\Users\Philipp\Desktop\CI-Test\Source\main.c: (in function main)
+C:\Users\Philipp\Desktop\CI-Test\Source\main.c(142,5):
+    Assignment of int to unsigned char: P1SEL = 0x00
+C:\Users\Philipp\Desktop\CI-Test\Source\main.c(143,5):
+    Assignment of int to unsigned char: P1DIR = 0x00
+C:\Users\Philipp\Desktop\CI-Test\Source\main.c(144,5):
+    Assignment of int to unsigned char: P1IN = 0xFF
+C:\Users\Philipp\Desktop\CI-Test\Source\main.c(145,5):
+    Assignment of int to unsigned char: P4SEL = 0x00
+C:\Users\Philipp\Desktop\CI-Test\Source\main.c(146,5):
+    Assignment of int to unsigned char: P4DIR = 0xFF
+C:\Users\Philipp\Desktop\CI-Test\Source\main.c(148,5):
+    Assignment of int to unsigned char: P1IES = 0x00
+C:\Users\Philipp\Desktop\CI-Test\Source\main.c(149,5):
+    Assignment of int to unsigned char: P1IE = 0xFF
+C:\Users\Philipp\Desktop\CI-Test\Source\main.c(150,5):
+    Assignment of int to unsigned char: P1IFG = 0x00
+C:\Users\Philipp\Desktop\CI-Test\Source\main.c(153,5): Unrecognized identifier:
+                                                          asm
+  Identifier used in code has not been declared. (Use -unrecog to inhibit
+  warning)
+C:\Users\Philipp\Desktop\CI-Test\Source\main.c(156,11):
+    Test expression for while not boolean, type int: 1
+  Test expression type is not boolean or int. (Use -predboolint to inhibit
+  warning)
+C:\Users\Philipp\Desktop\CI-Test\Source\main.c(17,5):
+    Variable exported but not used outside main: count
+  A declaration is exported, but not used outside this module. Declaration can
+  use static qualifier. (Use -exportlocal to inhibit warning)
+C:\Users\Philipp\Desktop\CI-Test\Source\main.c(18,5):
+    Variable exported but not used outside main: zuendungs_flag
+C:\Users\Philipp\Desktop\CI-Test\Source\main.c(19,5):
+    Variable exported but not used outside main: blinken_flag
+C:\Users\Philipp\Desktop\CI-Test\Source\main.c(20,5):
+    Variable exported but not used outside main: blinkzyklen
+C:\Users\Philipp\Desktop\CI-Test\Source\main.c(21,5):
+    Variable exported but not used outside main: warnblink
+
+Finished checking --- 24 code warnings
