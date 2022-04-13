@@ -1,0 +1,1 @@
+test.exe > report.txt 2>&1
