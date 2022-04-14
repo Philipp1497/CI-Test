@@ -15,16 +15,20 @@ void tearDown(void)
 {
 }
 
-void test_testISR(void)
+void test_add(void)
 {
   /* All of these should pass */
   TEST_ASSERT_EQUAL( 0, add(1,2));
-  TEST_ASSERT_EQUAL( 1, add(1,-3));
 }
 
+void test_add2(void)
+{
+	TEST_ASSERT_EQUAL( 1, add(1,-3));
+}	
 void main(void)
 {
 	UNITY_BEGIN();
-	RUN_TEST(test_testISR);
+	RUN_TEST(test_add);
+	RUN_TEST(test_add2);
 	return UNITY_END();
 }
