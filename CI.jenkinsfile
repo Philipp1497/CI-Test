@@ -8,6 +8,13 @@ pipeline {
             }
             
         }
+        stage ('Clear bin directory') {
+            steps{
+                bat """
+                    del Target\\bin\\*.*
+                """
+            }
+        }
         stage ('Build') {
             steps{
                 bat "Tools\\make\\start.bat"
