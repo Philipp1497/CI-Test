@@ -1,0 +1,17 @@
+../../Source/Test/test_math_module.c:73:test_timer_isr:PASS
+../../Source/Test/test_math_module.c:74:test_timer_isr2:PASS
+../../Source/Test/test_math_module.c:75:test_timer_isr3:PASS
+../../Source/Test/test_math_module.c:76:test_timer_isr4:PASS
+../../Source/Test/test_math_module.c:77:test_timer_isr5:PASS
+../../Source/Test/test_math_module.c:78:test_timer_isr6:PASS
+../../Source/Test/test_math_module.c:79:test_timer_isr7:PASS
+../../Source/Test/test_math_module.c:80:test_timer_isr8:PASS
+../../Source/Test/test_math_module.c:81:test_timer_isr9:PASS
+../../Source/Test/test_math_module.c:82:test_timer_isr10:PASS
+../../Source/Test/test_math_module.c:83:test_timer_isr11:PASS
+../../Source/Test/test_math_module.c:84:test_timer_isr12:PASS
+../../Source/Test/test_math_module.c:85:test_timer_isr13:PASS
+
+-----------------------
+13 Tests 0 Failures 0 Ignored 
+OK
