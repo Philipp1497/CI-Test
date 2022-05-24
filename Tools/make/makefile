@@ -44,8 +44,8 @@ OBJS_ASM: ${SOURCEPATH}/*.asm
 Bachelor_Praxisprojekt.out: $(OBJS) $(CMD_SRCS) $(LIB_SRCS) $(GEN_CMDS)
 	@$(echo) 'Invoking: MSP430 Linker'
 	"$(Compiler)/bin/cl430" -vmsp --use_hw_mpy=16 --advice:power=all \
-	--define=__MSP430F1611__ -g --printf_support=minimal --diag_warning=225\
-	--diag_wrap=off --display_error_number -z -m"$(TargetPath)/Bachelor_Praxisprojekt.map"\
+	--define=__MSP430F1611__ -g --printf_support=minimal --diag_warning=225 \
+	--diag_wrap=off --display_error_number -z -m"$(TargetPath)/Bachelor_Praxisprojekt.map" \
 	--heap_size=80 --stack_size=80 --cinit_hold_wdt=on -i"${MSP430_INCLUDE}" \
 	-i"$(Compiler)/lib" -i"$(Compiler)/include" --reread_libs --diag_wrap=off \
 	--display_error_number --warn_sections --xml_link_info="$(TargetPath)/Bachelor_Praxisprojekt_linkInfo.xml" \
