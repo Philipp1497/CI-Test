@@ -79,6 +79,8 @@ void isrTimer (void)
 
 #pragma INTERRUPT (isrTaster1);
 #pragma vector = 4;
+
+
 void isrTaster1(void)
 {
     switch(P1IFG) {
