@@ -1,0 +1,38 @@
+pipeline {
+    agent any
+    stages {
+        stage ('Checkout') {
+            steps{
+                 checkout([$class: 'GitSCM', branches: [[name: '*/main']],
+                    userRemoteConfigs: [[url: 'https://github.com/Philipp1497/CI-Test.git']]])
+            }
+            
+        }
+        stage ('Build') {
+            steps{
+                bat "Tools\\make\\start.bat"
+                 // bat "make\\start.bat"
+            }
+        }
+        stage ('archive Artifacts'){
+            steps{
+                archiveArtifacts artifacts: 'Target\\bin\\*.*', onlyIfSuccessful: true
+            }
+        }
+        stage ('run static code analysis'){
+            steps{
+                bat """
+                    xcopy "Source\\*.*" "Tools\\splint" /y
+                    cd Tools\\splint
+                    start.bat
+                """
+            }
+        }
+        stage ('archive LogFile'){
+            steps{
+                archiveArtifacts artifacts: 'Tools\\splint\\log.txt', onlyIfSuccessful: true
+            }
+        }
+    }
+    
+}
