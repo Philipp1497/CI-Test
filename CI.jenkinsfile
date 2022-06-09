@@ -38,5 +38,12 @@ pipeline {
             }
         }
     }
+	post{
+		always {
+			xunit (
+				tools: [ Junit(pattern: '*.xml') ]
+			)
+		}
+	}
     
 }
