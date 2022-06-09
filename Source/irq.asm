@@ -15,6 +15,6 @@ initTimerA:
 	bic.w #CAP, &TACCTL0
 ; enable Timer-A interrupt
 	bis.w #CCIE, &TACCTL0
-; select continuous mode – start timer
+; select continuous mode start timer
 	bis.w #MC_2, &TACTL
 	ret

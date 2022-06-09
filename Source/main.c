@@ -49,10 +49,10 @@ void isrTimer (void)
             blinkzyklen++;
             if(blinkzyklen == 3){
                 if(P1IN == 0x01 || P1IN == 0x02 || P1IN == 0x04 || P1IN == 0x03){
-                    blinkzyklen = 1;//flag zurücksetzen
+                    blinkzyklen = 1;//flag zuruecksetzen
                 } else {
                     TACTL &= ~(MC_2); // Timer stoppen
-                    blinkzyklen = 0;//flag zurücksetzen
+                    blinkzyklen = 0;//flag zuruecksetzen
                     blinken_flag = 0;
                 }
             }
@@ -88,7 +88,7 @@ void isrTaster1(void)
         // Zuendungs Case, Taster ganz links
         if(zuendungs_flag == 0){
             zuendungs_flag++;
-            P4OUT |= 0x20; // Led für Zündung
+            P4OUT |= 0x20; // Led fuer Zuendung
         } else {
             zuendungs_flag = 0; //reset vom flag
             P4OUT = 0x00; //Leds ausmachen
@@ -112,7 +112,7 @@ void isrTaster1(void)
             TACTL &= ~(MC_2);
             count = 1;
             warnblink = 0;
-            blinken_flag = 1; // für den fall rechts blinken
+            blinken_flag = 1; // fuer den fall rechts blinken
             blinkzyklen = 0;
             initTimerA();
         }
@@ -122,7 +122,7 @@ void isrTaster1(void)
             TACTL &= ~(MC_2);
             count = 1;
             warnblink = 0;
-            blinken_flag = 2; // für den fall links blinken
+            blinken_flag = 2; // fuer den fall links blinken
             blinkzyklen = 0;
             initTimerA();
         }
@@ -132,7 +132,7 @@ void isrTaster1(void)
             TACTL &= ~(MC_2);
             count = 1;
             warnblink = 0;
-            blinken_flag = 3; // für den fall rechts und links blinken gleichzeitig
+            blinken_flag = 3; // fuer den fall rechts und links blinken gleichzeitig
             blinkzyklen = 0;
             initTimerA();
         }
@@ -186,10 +186,10 @@ void main (void)
               }
        }
        if(zuendungs_flag == 1){
-           putString(0,5, "Zündung aktiv!");
+           putString(0,5, "Zuendung aktiv!");
        } else {
            putString(12,5, "  ");
-           putString(0,5, "Zündung aus!");
+           putString(0,5, "Zuendung aus!");
        }
 
     }
