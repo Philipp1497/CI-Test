@@ -41,7 +41,7 @@ pipeline {
 	post{
 		always {
 			xunit (
-				tools: [ JUnitType(pattern: '*.xml') ]
+				tools: [[$class: 'JUnitType', pattern: '*.xml']]
 			)
 		}
 	}
