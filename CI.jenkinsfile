@@ -37,13 +37,13 @@ pipeline {
                 archiveArtifacts artifacts: 'Tools\\memory\\output\\output.txt', onlyIfSuccessful: true
             }
         }
-    }
-	post{
-		always {
-			xunit (
-				tools: [[$class: 'JUnitType', pattern: '*.xml']]
-			)
+		
+		stage ('results'){
+			steps{
+				xunit (
+					tools: [[$class: 'JUnitType', pattern: '*.xml']]
+				)
+			}
 		}
-	}
-    
+    }
 }
