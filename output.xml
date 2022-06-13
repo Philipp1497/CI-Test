@@ -1,5 +1,5 @@
-<testsuites disabled="0" errors="0" failures="0" tests="4" time="493.38">
-	<testsuite disabled="0" errors="0" failures="0" name="my test suite" skipped="0" tests="4" time="493.38">
+<testsuites errors="0" failures="0" tests="4" time="493.38">
+	<testsuite errors="0" failures="0" name="my test suite" skipped="0" tests="4" time="493.38">
 		<testcase name="main.c" time="123.345000" classname="some_name">
 			<system-out>Lines: 197</system-out>
 		</testcase>
