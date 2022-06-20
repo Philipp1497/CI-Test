@@ -40,9 +40,9 @@ pipeline {
 		
 		stage ('results'){
 			steps{
-				xunit (
-					tools: [[$class: 'JUnitType', pattern: '*.xml']]
-				)
+				xunit tools: [Custom(customXSL: 'unity.xsl', pattern: 'report.xml', skipNoTestFiles: false, stopProcessingIfError: true)]
+
+				cobertura coberturaReportFile: 'GcovCoverageCobertura.xml'
 			}
 		}
     }
